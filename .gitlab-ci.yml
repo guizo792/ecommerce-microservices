@@ -1,0 +1,31 @@
+stages:
+  - triggers
+
+product-ms:
+  stage: triggers
+  trigger:
+    include: product-ms/.gitlab-ci.yml
+  rules:
+    - changes:
+        - product-ms/**/*
+command-ms:
+  stage: triggers
+  trigger:
+    include: command-ms/.gitlab-ci.yml
+  rules:
+    - changes:
+        - command-ms/**/**
+payment-ms:
+  stage: triggers
+  trigger:
+    include: payment-ms/.gitlab-ci.yml
+  rules:
+    - changes:
+        - payment-ms/**/*
+clientui:
+  stage: triggers
+  trigger:
+    include: clientui/.gitlab-ci.yml
+  rules:
+    - changes:
+        - clientui/**/*
