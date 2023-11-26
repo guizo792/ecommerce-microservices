@@ -4,12 +4,7 @@ const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 // Read product data from the JSON file
-const productsData = JSON.parse(
-  fs.readFileSync(
-    "C:\\Users\\HP\\Desktop\\Mcommerce\\product-ms\\dev-data\\products.json",
-    "utf8"
-  )
-);
+const productsData = JSON.parse(fetch(api_url).then((res) => res));
 
 // Define the API endpoint where you want to send the POST request
 const api_url = "http://localhost:8080/Products"; // Replace with your actual API endpoint
