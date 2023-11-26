@@ -1,7 +1,7 @@
 image: node:latest
 
 variables:
-  IMAGE_NAME: guizo792/product-ms
+  IMAGE_NAME: guizo792/email-ms
   IMAGE_TAG: app
   DOCKER_REGISTRY_USER: guizo792
   DOCKER_REGISTRY_PASS: dckr_pat_dsXZ2z4kYEfgKw58WggXvgrt5kc
@@ -16,10 +16,10 @@ stages:
 include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
 
-product-ms-build:
+email-ms-build:
   stage: build
   before_script:
-    - cd product-ms
+    - cd email-ms
   script:
     - npm install
   artifacts:
@@ -30,15 +30,15 @@ product-ms-build:
     paths:
       - ${CACHE_PATH}
 
-product-ms-scan:
+email-ms-scan:
   stage: scan
   before_script:
-    - cd product-ms
+    - cd email-ms
   script:
     - npm install
     - npm audit
 
-product-ms-publish:
+email-ms-publish:
   stage: publish
   image: docker:20.10.16
   services:
@@ -46,7 +46,7 @@ product-ms-publish:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   before_script:
-    - cd product-ms
+    - cd email-ms
     - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASS
 
   script:
