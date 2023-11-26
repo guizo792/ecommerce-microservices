@@ -5,7 +5,7 @@ variables:
   DOCKER_IMAGE_NAME: product-service
   DOCKER_IMAGE_TAG: latest
   DOCKER_REGISTRY_USER: guizo792
-  DOCKER_REGISTRY_TOKEN: dckr_pat_DOvcjGLc9RjFHNE9-aTzIDnSqys
+  DOCKER_REGISTRY_TOKEN: dckr_pat_dsXZ2z4kYEfgKw58WggXvgrt5kc
 
 build:
   stage: build
