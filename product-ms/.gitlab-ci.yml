@@ -1,9 +1,9 @@
 image: node:latest
 
 variables:
-  IMAGE_NAME: abdo20/product-ms
+  IMAGE_NAME: guizo792/product-ms
   IMAGE_TAG: app
-  REGISTRY_USER: abdo20
+  REGISTRY_USER: guizo792
   REGISTRY_PASS: dckr_pat_dsXZ2z4kYEfgKw58WggXvgrt5kc
   CACHE_PATH: node_modules/
 
