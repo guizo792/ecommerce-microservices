@@ -29,3 +29,10 @@ clientui:
   rules:
     - changes:
         - clientui/**/*
+auth-ms:
+  stage: triggers
+  trigger:
+    include: auth-ms/.gitlab-ci.yml
+  rules:
+    - changes:
+        - auth-ms/**/*

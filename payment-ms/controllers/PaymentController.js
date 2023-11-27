@@ -61,7 +61,9 @@ router.post("/payments", async (req, res) => {
         .status(500)
         .json({ error: "Erreur lors de la mise à jour de la commande" });
     }
-    const email = "mralix360@gmail.com";
+
+    const email = "guizoulabdellah@gmail.com";
+
     channel.sendToQueue(
       "ORDER",
       Buffer.from(
