@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: command-ms
+  namespace: mcommerce
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: command-ms
+  template:
+    metadata:
+      labels:
+        app: command-ms
+    spec:
+      containers:
+        - name: command-ms
+          image: abdo20/command-ms:app-v2
+          ports:
+            - containerPort: 8081
+          resources: {}
+          env:
+            - name: MONGO_DB
+              valueFrom:
+                secretKeyRef:
+                  name: mcommerce-secret
+                  key: mcommerce-database
+            - name: MONGO_SERVICE
+              value: mcommerce-mongodb-service
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: command-ms-service
+  namespace: mcommerce
+spec:
+  selector:
+    app: command-ms
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type: ClusterIP

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-ms
+  namespace: mcommerce
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: payment-ms
+  template:
+    metadata:
+      labels:
+        app: payment-ms
+    spec:
+      containers:
+        - name: payment-ms
+          image: abdo20/payment-ms:app-v4
+          ports:
+            - containerPort: 8082
+          resources: {}
+          env:
+            - name: MONGO_DB
+              valueFrom:
+                secretKeyRef:
+                  name: mcommerce-secret
+                  key: mcommerce-database
+            - name: MONGO_SERVICE
+              value: mcommerce-mongodb-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-ms-service
+  namespace: mcommerce
+spec:
+  selector:
+    app: payment-ms
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082
+  type: ClusterIP

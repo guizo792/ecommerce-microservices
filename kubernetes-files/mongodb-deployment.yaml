@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mcommerce-mongodb
+  namespace: mcommerce
+spec:
+  serviceName: mcommerce-mongodb-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mcommerce-mongodb
+  template:
+    metadata:
+      labels:
+        app: mcommerce-mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:4.2.0
+          env:
+            - name: MONGO_INITDB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mcommerce-secret
+                  key: mcommerce-database
+          volumeMounts:
+            - name: mongodb-data
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongodb-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mcommerce-mongodb-service
+  namespace: mcommerce
+spec:
+  selector:
+    app: mcommerce-mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
